@@ -1,0 +1,475 @@
+1.介绍下css的盒子模型
+ （0）盒模型：内容content，填充padding，边界margin，边框border
+ （1）有两种，ie盒子模型。标准w3c盒子模型
+ （2）ie的content部分包含border和padding
+ 
+ w3c标准盒子模型：content，padding，border，margin，其中content并不包含其他内容
+ ie盒子模型：content，padding，border，margin，其中content包含padding和border
+ 
+ 
+ 2.列举出display都得值，并说明他们的作用
+  block：像块类元素一样显示
+  inline：缺省值，像行内元素类型一样显示
+  inline-block：像行内元素一样显示，但内容像块类元素一样显示
+  list-item: 像块类型元素一样显示，并添加样式列表标记
+  
+
+3.vue生命周期
+beforeCreate， created， beforeMount， mounted， beforeUpdate， updated，beforeDestory， destroyed
+
+4.Mvvm的理解
+model 数据模型
+view   ui组件
+viewModel   监听模型数据的改变和控制视图行为，交互，同步view和model
+
+
+5.vuex是什么
+只用来读取的状态集中放在store中；改变状态的方式是提交mutations，这是个同步的事物；异步逻辑封装在action中
+
+vuex是专门为vue开发的数据状态管理模式，组件之间数据状态共享
+
+如果需要修改store中的值得唯一的方法就是提交mutation来修改。
+
+
+
+6.dom渲染在哪个周期中完成
+
+第一次页面加载会触发哪几个钩子：beforeCreate,created,beforeMount,mounted
+
+mounted
+
+
+7.如何获取某个dom节点
+getElementById， getElementByTagName
+
+
+8.父子组件参数传递：
+（1）父组件传给子组件：子组件通过props方法接受数据
+（2）子组件传给父组件：$emit方法传递参数
+（3）兄弟组件之间传值，用vuex，或者子组件传递给父组件，然后父组件再传递给子组件
+
+
+9.vue和angular的区别
+相同点：都支持指令：内置指令和自定义指令；都支持过滤器，都支持双向数据绑定，都不支持低端浏览器
+不同点：angular学习成本高，vue成本低
+
+10.css只在当前组件中起作用
+在style标签中写入scoped
+
+11.v-if和v-show的区别
+v-if是否编译渲染，v-show为是否展示和隐藏
+
+12.vue的常用指令
+v-if，v-show，v-else，v-for，v-bind，v-on
+
+
+13.js原型链
+函数function才有prototype属性，对象拥有  __proto__  
+prototype是函数才有的属性， __proto__是每个对象都有的属性
+
+
+14.闭包
+变量的作用域两种： 全局变量和局部变量
+js：函数内部可以直接读取全局变量，但是在函数外部无法读取函数内部的局部变量。
+有时候为了获取函数内部的局部变量，就需要在函数内部再定义一个函数，就是闭包
+
+15. vue如何自定义一个过滤器,过滤器
+
+（1）使用过滤器进行渲染数据
+（2）过滤器不能改变真正的数据，只是改变渲染的结果，并返回过滤后的版本
+（3）过滤器可以尽可能的保护api响应的干净
+（4）使用管道符号（|）对过滤器进行串联
+<div id="app">
+     <input type="text" v-model="msg" />
+     {{msg| capitalize }}
+</div>
+
+var vm=new Vue({
+    el:"#app",
+    data:{
+        msg:''
+    },
+    filters: {
+      capitalize: function (value) {
+        if (!value) return ''
+        value = value.toString()
+        return value.charAt(0).toUpperCase() + value.slice(1)
+      }
+    }
+})
+
+16.computed是一个计算属性，类似于过滤器，对绑定到view的数据进行处理
+watch是一个观察的动作
+
+17.vue实现数据双向绑定主要是：采用数据劫持结合发布者-订阅者模式的方法，通过object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。
+
+（1）实现一个数据监听器Observer,能够对数据对象的所有属性进行监听，如有变动可拿到最新值并通知订阅者。
+（2）实现一个指令解析器Compile，对每个元素节点的指令进行扫描和解析，根据指令模板替换数据，以及绑定相应的更新函数
+（3）实现一个Watcher，作为连接Observer和Compile的桥梁，能够订阅并收到每个属性变动的通知，执行指令绑定的相应回调函数
+
+
+
+18.display:none 与 visibility:hidden的区别
+display:none不显示对应的元素，在文档布局中不再分配空间
+visibility:hidden隐藏对应元素，在文档布局中仍保留原来的空间
+
+
+19.响应式设计：
+响应式网站设计是一个网站能够兼容多个终端，而不是为每一个终端做一个特定的版本。基本原理是通过媒体查询检测不同的设备屏幕尺寸做处理。页面头部必须有meta声明的 viewport
+
+
+20：如何让谷歌浏览器支持小于12px的文字？
+通过缩放进行支持。 font-size:10px; -webkit-transform:scale(0.8);
+
+21：如何优化SPA应用的首屏加载速度慢的问题：
+（1）将公用的JS库通过script标签外部引入，减小app.bundel的大小，让浏览器并行下载资源文件，提高下载速度；
+（2）在配置路由时，页面和组件使用懒加载的方式引入，进一步缩小app.bundel的体积，在调用某个组件时再加载对应的js文件；
+（3）加一个首屏loading图，提升用户体验；
+
+22：vue等单页面应用及其优缺点
+（1）优点：
+vue的目标是通过尽可能简单的api实现响应的数据绑定和组合的视图组件，核心是一个相应的数据绑定系统。mvvm、数据驱动、组件化、轻量、简洁、高效、快速、模块友好。
+（2）缺点：
+不支持低版本的浏览器，最低只支持到IE9；不利于SEO的优化（如果要支持SEO，建议通过服务端来进行渲染组件）；第一次加载首页耗时相对长一些；不可以使用浏览器的导航按钮需要自行实现前进、后退。
+
+
+23：是否了解函数柯里化：
+函数柯里化是指将多变量函数拆解成单变量的多个函数的依次调用，可以从高元函数动态的生成批量的低元的函数。
+
+24：请说出三种减少页面加载时间的方法（加载时间指感知时间或者实际加载时间）
+（1）减少http请求（合并文件、合并图片）
+（2）优化图片文件，减小其尺寸，特别是缩略图，一定要按尺寸生成缩略图然后调用，不要在网页中用resize方法实现；
+（3）压缩javascripe、css代码：一般js、css文件中存在大量的空格，换行，注释，将这些内容进行压缩删减。
+
+25：如何实现浏览器内多个标签页之间的通信？
+（1）使用lo9calstorage，localstorage是浏览器多个标签共用的存储空间，所以可以用来实现多标签之间的通信；
+（2）websocket通讯，websocket全双工通信，可以实现多个标签页之间的通信；
+（3）定时器setInterval+cookie实现
+
+
+26：请描述下cookies,sessionStorage和localStorage的区别：
+相同点：都存储在客户端
+不同点：
+（1）存储大小
+cookie数据大小不能超过4K，sessionStorage和localStorage虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大。
+（2）有效时间
+localStorage存储持久数据，浏览器关闭后数据不丢失除非主动删除数据；
+sessionStorage数据在当前浏览器窗口关闭后自动删除；
+cookie设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭；
+（3）数据与服务器之间的交互方式
+cookie的数据会自动的传递到服务器，服务器端也可以写cookie到客户端
+sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存
+
+
+27.从敲入url到渲染完成的整个过程，包括DOM构建的过程，详细描述
+（1）输入URL，浏览器根据域名寻找IP地址
+（2）浏览器发送一个HTTP请求给服务器，如果服务器返回以301之类的重定向，浏览器根据相应头中的location再次发送请求
+（3）服务器接收请求，处理请求生成html代码，返回给浏览器，这时的html页面代码可能是经过压缩的
+（4）浏览器接收服务器响应结果，如果有压缩则首先进行解压处理
+（5）浏览器开始显示HTML
+（6）浏览器发送请求，以获取嵌入在HTML中的对象。在浏览器显示HTML时，它会注意到需要获取其他地址内容的标签
+同时浏览器页面渲染同时进行：
+（1）解析HTML
+（2）构建DOM树
+（3）DOM树与CSS样式进行附着构造呈现树
+（4）布局
+（5）绘制
+
+
+28. javascript typeof返回的数据类型有哪些
+object，string，undefined，number，function，boolean
+
+29.pop，push，unshift，shift
+pop() 尾部删除
+push() 尾部插入
+unshift() 头部插入
+shift() 头部删除
+
+30. == 和 === 的区别
+前者会自动转换类型，后者不会自动转换类型
+
+31.js严格模式
+use strict
+消除js一些不合理的用法，消除代码运行的一些不安全之处，增加运行速度
+（1）变量必须声明
+（2）对象不能出现重复属性名
+（3）arguments改变，不会影响函数参数
+（4）eval，arguments变为关键字，不能作为变量名
+（5）不允许使用with
+（6）不用call，apply，bind改变this指向，一般函数调用指向null
+
+32.http的常用状态码：
+（1）200：正常，表示一切正常，返回的是正常请求结果
+（2）302/307临时重定向，表示请求的文档，已被临时移动到别处
+（3）304未修改，调用缓存的数据
+（4）403服务器拒绝客户请求
+（5）404服务器不存在客户想要找的资源
+（6）500服务器内部错误
+
+33.如何阻止事件冒泡和默认事件
+（1）阻止事件冒泡：
+IE9+/FF/Chrome ： e.stopPropagation();
+window.event.cancelBubble = true;     // ie9之前
+（2）阻止默认行为：
+IE9之前：window.event.returnValue = false;
+IE9+/FF/Chrome:    e.preventDefault();
+
+34.请描述事件冒泡机制
+W3C在DOM2中添加了一个事件模型，DOM事件流存在三个阶段，事件捕获，目标阶段，冒泡阶段。也就是当事件触发的时候，浏览器会从根节点开始，由外到内的进行事件传播，直到目标元素，如果在此捕获阶段绑定事件，都会触发。然后从目标元素，事件又会沿着当前元素的包含关系，由内而外的传递，每一级都可以感知到事件触发。
+
+35.swiper.js在loop模式下点击事件的bug
+描述：swiper在loop状态，第一页往前翻的那一页，以及最后一页往后翻的那一页点击跳转链接无效
+原因：loop模式下，swiper插件会复制第一个swipe和最后一个swipe，即存在 n+2 个swipe，由于多出的两个swipe是由插件生成的dom，并非虚拟dom，所以绑定的click事件并不会绑定到这两个swipe上去。
+解决：不在dom上绑定click事件，使用swipe的onclick回调函数可以解决了。
+
+36.angular的数据绑定采用什么机制？详述原理
+脏检查机制
+双向数据绑定是AngularJS的核心机制之一。当view中有任何数据变化时，会更新到model，当model中数据有变化时，view也会同步更新，这需要一个监控。
+
+原理就是，Angular在scope模型上设置了一个监听队列，用来监听数据变化并更新view。每次绑定一个东西到view上时AngularJS就会往$watch队列里插入一条$watch,用来检测它监视的model里是否有变化的东西。当浏览器接收到可以被angular context处理的事件时，$digest 循环就会被触发，遍历所有的$watch，最后更新dom。
+
+37.angular 的缺点有哪些？
+（1）强约束，导致学习成本高，对前端不友好
+（2）不利于SEO，因为所有内容都是动态获取并渲染生成的，搜索引擎没法爬取
+（3）性能问题，作为MVVM框架，因为实现了数据的双向绑定，对于大数组、复杂对象会存在性能问题。
+
+
+38.移动页面适配：
+（1）百分比适配：用百分比做适配的方法是子元素相对于父元素的百分之多少
+（2）用rem来做适配：rem相对单位，根据根节点html的字体大小来计算，css3新加属性，chrome/firefox/IE9+都支持。
+rem是相对尺寸单位，rem是将根节点html的font-size的值作为整个页面的基准尺寸，计算如下：
+元素的rem尺寸 = 元素的psd稿测量的像素尺寸/动态设置的html标签的font-size值
+
+
+39.JSON的深拷贝
+引用数据类型-名存在栈内存中，值存在于堆内存中，但是栈内存会提供一个引用的地址指向堆内存中的值。
+JSON.parse(JSON.stringify(json));这样可以实现对象的简易深拷贝
+
+40.行内元素和块级元素
+块级元素:总是在新行上开始，高度、行高以及外边距和内边距都可控制，宽度缺省是它的容器的100%，除非设定一个宽度，它可以容纳内联元素和其他块元素。
+行内元素：和其他元素都在一行上，高，行高及外边距和内边距不可改变，宽度就是它的文字或图片的宽度，不可改变，内联元素只能容纳文本或者其他内联元素。
+
+41.Vue.js中watch监听
+watch的一个特点是，最初绑定的时候不会执行，要等到firstName改变时才执行监听计算。
+
+watch:{
+	firstName:{
+		handler(newName,oldName){
+			this.fullName = newName + '' + 'haha';
+		},
+		immediate:true,       // 代表在watch里声明了firstName这个方法后立即先去执行handler方法
+		deep：false，         // 默认值是false，代表是否深度监听，deep的意思就是深入观察，监听器会一层层的往下遍历，给对象的所有属性都加上这个监听器。
+	}
+}
+
+42.vue中 methods，watch和compute的区别与联系
+一，作用机制：
+（1）watch和computed都是以Vue的依赖追踪机制为基础的，它们都试图处理这样一件事：当某一个数据发生变化的时候，所有依赖这个数据的相关数据自动发生变化，也就是调用相关的函数去实现数据的变动。
+（2）对methods：methods里面定义的函数，是需要主动调用的，而和watch和computed相关的函数，会自动调用，完成我们希望完成的作用。
+二，从性质上看：
+（1）methods里面定义的是函数，需要去调用它
+（2）computed是计算属性，事实上和data对象里的数据属性是同一类
+三，watch和computed区别
+（1）首先它们都是以Vue的依赖追踪机制为基础的，它们的共同点是：都是希望在依赖数据发生改变的时候，被依赖的数据根据预先定义好的函数，发生‘自动’的变化
+（2）但是watch和computed也有明显不同的地方：watch擅长处理的场景:一个数据影响多个数据，computed擅长处理的场景：一个数据受多个数据影响。
+
+43.css flex 弹性布局，多个div自动换行
+   display:flex  flex-flow:row wrap  
+   
+44.正则语法规则
+   [xyz]匹配任何一个包含的字符
+   [^xyz]否定字符集，匹配未包含的字符
+   \d 匹配数字
+   \D 匹配非数字
+   
+45. CSS3 box-shadow属性
+语法： box-shadow: h-shadow v-shadow blur spread color inset;
+h-shadow: 必需，水平阴影的位置，允许负值。正值代表向右偏，负值代表向左偏
+v-shadow: 必需，垂直阴影的位置，允许负值。正值代表向下偏，负值代表向上偏
+blur：可选，模糊距离
+spread：可选，阴影的尺寸
+color：可选，阴影的颜色
+inset：可选，将外部阴影(outset)改为内部阴影
+box-shadow: 0 4px 8px 0 #888888;
+
+
+46.vuex
+1.state 是vuex中的公共的状态，state看作是所有组件的data，用于保存所有组件的公共数据
+  通过$方法赋值    {{$store.state.count}}
+  
+2.Getters属性理解为所有组件的computed属性，也就是计算属性。vue官方文档也是说可以将getter理解为store的计算属性，getters的返回值会根据它的依赖被缓存起来，且只有当它的依赖值发生了改变才会被重新计算。
+  getters可以看作是获取数据之前进行的一种再编辑，相当于对数据的一个过滤和加工。可以看作store.js的计算属性。
+
+
+3.Mutations：理解为store中的methods，mutations对象中保存着更改数据的回调函数，该函数名官方规定叫type，第一个参数是state，第二个参数是payload，也就是自定义的参数。
+  $store.commit()  传递commit的方法
+  $store.commit('add',10)
+  $store.commit('reduce')
+  
+4.Actions，actions类似于mutations，不同在于：
+-actions提交的是mutations而不是直接变更状态
+-actions中可以包含异步操作，mutations中绝对不允许出现异步
+-actions中的回调函数的第一个参数是context，是一个与store实例具有相同属性和方法的对象
+
+actions和之前讲的mutations功能基本一样，不同点是，actions是异步的改变state状态，而mutations是同步改变状态
+
+5.modules：由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store对象就有可能变得相当臃肿。为了解决以上问题，Vuex允许我们将store分割成模块（module）。每个module模块拥有自己的state，mutation，action，getter，甚至是嵌套子模块——从上至下进行同样方式的分割。
+
+
+
+47.vue-router 传参
+(1)query方式传参和接收参数
+this.$router.push({
+	path:'/xxx'
+	query:{
+		id:id
+	}
+})
+this.$router.query.id
+(2)params方式传参和接收参数
+this.$router.push({
+	name:'xxx'
+	params:{
+		id:id
+	}
+})
+this.$route.params.id
+注意：params传参，push里只能是 name:'xxx'，不能是path:'/xxx'，因为params只能用name来引入路由，如果这里写成了path，接收参数页面会是undefined
+
+
+48.left与top
+left与top是需要在absolute：position的条件下才可以起作用
+left与top的值是相对于屏幕的距离，因为已经是绝对定位了，脱离了文档流，所以是相对屏幕的距离来进行判断对应的位置来确定
+
+
+49.js对象的深度拷贝
+JSON.parse(JSON.stringify(person))
+但是这种简单粗暴的方法有其局限性。当值为 undefined，function，symbol会在转换过程中被忽略。。。所以，对象值有这三种的话用这种方法会导致属性丢失。
+
+
+50.vue-router路由    路由嵌套和参数传递
+传参的两种形式：
+（a）查询字符串：login?name=tom&pwd=123
+		{{$route.query}}
+（b）rest风格url：regist/alice/456
+		{{$route.params}}
+
+
+51.js基本有5种简单数据类型：String,Number,Boolean,Null,undefined,一种复杂的数据类型Object。将其他数据类型转换为String类型，可以使用String()和toString()。这两个方法的区别是String()可以转任何类型，而toString()方法不能转Null，undefined两种类型。
+
+
+52.栈内存和堆内存
+(1)基础数据类型是指存放在栈中的简单数据段，数据大小确定，内存空间大小可以分配，它们是直接按值存放的，可以直接按值访问。
+(2)引用数据类型是指存放在堆内存中的对象，每个空间大小不一样，要根据情况进行特定的配置。引用类型是存放在堆内存中的对象，变量其实是保存在栈内存中的一个指针（保存的是堆内存中的引用地址），这个指针指向堆内存。
+引用类型数据在栈内存中保存的实际上是对象在堆内存中的引用地址。通过这个引用地质可以快速查找到保存在堆内存中的对象。
+var obj1 = new Object();
+var obj2 = obj1;
+obj2.name = 'name';
+console.log(obj1.name);        // name
+(3)浅拷贝与深拷贝
+在定义一个数组或对象时，变量存放的往往只是一个地址。当我们使用对象拷贝时，如果属性是对象或数组时，这时候我们传递的也只是一个地址。因此子对象在访问该属性时，会根据地址回溯到父对象指向的堆内存中，即父子对象发生了关联，两者的属性值会指向同一内存空间
+
+53.-webkit-device-pixel-ratio:2 
+DPI(DPR) stands for Dots Per Inch which technically means printer dots per inch
+这个参数实际上量化了屏幕的物理分辨率和显示清晰度，比如iphone的DPR就是2，比一般的手机都要高，iphoneX的DPR是3
+
+54.跨域相关问题
+(1)跨域是指从一个域名的网页去请求另一个域名的资源。比如从www.baidu.com 页面去请求www.google.com的资源。它是由浏览器的同源策略造成的，是浏览器对javascript添加的安全限制。跨域的严格一点的定义是：只要协议、域名、端口有任何一个不同的，就被当作是跨域
+
+
+55.iphoneX以及之后系列html页面适配问题
+1.iphoneX 系列适配：
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+    /* 这代表IPX */
+    /* 目前这种设备像素比 和 尺寸是很“奇葩”、特殊的，基本可以确定是 IPX */
+    .detailBut{
+        height: 87px !important;
+        padding-bottom:34px;
+    }
+    .holdBut{
+        height:83px !important;
+        padding-bottom: 34px;
+    }
+}
+2.iphoneXr，iphoneXs，iphoneXs max ，iphone11等系列，都按照iphoneX系列的适配进行，只不过倍率是2倍或者3倍进行分别适配：
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 2) {
+    /* 这代表IPX */
+    /* 目前这种设备像素比 和 尺寸是很“奇葩”、特殊的，基本可以确定是 IPX */
+    .detailBut{
+        height: 87px !important;
+        padding-bottom:34px;
+    }
+    .holdBut{
+        height:83px !important;
+        padding-bottom: 34px;
+    }
+}
+
+56.html弹出框
+遮罩层样式
+.class{
+    position: fixed;
+    width: 100%;
+    height:100%;
+    top: 50%;
+    left: 50%;
+    background: rgba(0,0,0,0.5);
+    z-index: 2;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border:1px solid #999999;
+    border-radius: 5px;
+}
+
+57.获取当前完整的url路径
+    var absurl = $location.absUrl();
+    http://1.2.3.4:8080/#/homePage?id=10&a=100
+获取当前url路径(当前url#后面的内容，包括参数和哈希值)
+    var url = $location.url();
+    /homePage?id=10&a=100
+获取当前url的子路径(也就是当前url#后面的内容，不包括参数)
+    var url = $location.path();
+    /homePage
+    ----------------------------------------------
+    1、window.location.href(设置或获取整个 URL 为字符串)
+    var test = window.location.href;
+    alert(test);
+    返回：http://i.cnblogs.com/EditPosts.aspx?opt=1
+    2、window.location.protocol(设置或获取 URL 的协议部分)
+    var test = window.location.protocol;
+    alert(test);
+    返回：http:
+    3、window.location.host(设置或获取 URL 的主机部分)
+    var test = window.location.host;
+    alert(test);
+    返回：i.cnblogs.com
+    4、window.location.port(设置或获取与 URL 关联的端口号码)
+    var test = window.location.port;
+    alert(test);
+    返回：空字符(如果采用默认的80端口(update:即使添加了:80)，那么返回值并不是默认的80而是空字符)
+    5、window.location.pathname(设置或获取与 URL 的路径部分（就是文件地址）)
+    var test = window.location.pathname;
+    alert(test);
+    返回：/EditPosts.aspx
+    6、window.location.search(设置或获取 href 属性中跟在问号后面的部分)
+    var test = window.location.search;
+    alert(test);
+    返回：?opt=1
+PS：获得查询（参数）部分，除了给动态语言赋值以外，我们同样可以给静态页面，并使用javascript来获得相信应的参数值。
+    7、window.location.hash(设置或获取 href 属性中在井号“#”后面的分段)
+    var test = window.location.hash;
+    alert(test);
+    返回：空字符(因为url中没有)
+    8、split 拆分法
+    首先获取到url，然后根据split的方法，切割url，获取到参数的值
+
+58.js跳转到指定的页面
+    1.window.location.href="b.html"
+    2.window.history.back(-1)
+    3.window.navigate("b.html")
+    4.self.location='b.html'
+    5.top.location='b.html'
+
