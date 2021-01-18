@@ -473,3 +473,26 @@ PS：获得查询（参数）部分，除了给动态语言赋值以外，我们
     4.self.location='b.html'
     5.top.location='b.html'
 
+
+59
+1.vue项目中请求不同的地址，在vue项目中，通过配置代理进行后端服务器接口地址访问，当需要访问不同微服务的后端接口时需要配置不同的地址。在config/index.js中配置不同的地址。
+proxy:{
+	'/api':{
+		target:'http:///xxx.xxx.xxx.xxx:8080',
+		changeOrigin:true,
+		ws:true,
+		pathRewrite:{
+			'^/api':''
+		}
+	},
+	'/apiTwo':{
+		target:'http:baidu.com',
+		changeOrigin:true,
+		ws:true,
+		pathRewrite:{
+			'^/apiTwo':''
+		}
+	}
+}
+
+//  在调用对应的请求时，直接用 /api + 接口，/apiTwo + 接口
